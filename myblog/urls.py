@@ -21,5 +21,7 @@ from .settings import STATIC_ROOT
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
-    url(r'static/$', 'django.views.static.serve',{'document_root': STATIC_ROOT}),
+    url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT})
 ]
+
+
