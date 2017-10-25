@@ -22,7 +22,7 @@ from django.views.static import serve
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
-    url(r'^static/$', serve, {'document_root': STATIC_ROOT})
+    url(r'^static/', serve, {'document_root': STATIC_ROOT})
 ]
 
 
