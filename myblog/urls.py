@@ -17,12 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from .settings import STATIC_ROOT
 from django.views.static import serve
+from django.conf import settings
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
-    url(r'^static/', serve, {'document_root': STATIC_ROOT})
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
 ]
 
 
