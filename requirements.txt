@@ -4,6 +4,7 @@ django-haystack==2.6.1
 gunicorn==19.7.1
 jieba==0.38
 Markdown==2.6.8
+psycopg2==2.7.3.2
 Pygments==2.2.0
 pytz==2016.10
 Whoosh==2.7.4
