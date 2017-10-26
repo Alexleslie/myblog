@@ -1,3 +1,4 @@
+dj-database-url==0.4.2
 Django==1.10.6
 django-haystack==2.6.1
 gunicorn==19.7.1

@@ -413,6 +413,51 @@ Services Style
   color: #fff;
 }
 
+
+
+#servicess {
+  background: #24242a;
+  padding: 60px 0;
+  text-align: center;
+}
+#servicess h2 {
+  text-transform: uppercase;
+  color: #fff;
+}
+#servicess p {
+  color: #fff;
+}
+#servicess .services-box {
+  margin-top: 40px;
+}
+#servicess .services-box .col-md-4 {
+  margin-bottom: 20px;
+}
+#servicess .services-box .col-md-4 .media-left,
+#servicess .services-box .col-md-4 .media-right,
+#servicess .services-box .col-md-4 .media-body {
+  padding-right: 30px;
+  vertical-align: baseline;
+}
+#servicess .services-box .col-md-4 .media-left p,
+#servicess .services-box .col-md-4 .media-right p,
+#servicess .services-box .col-md-4 .media-body p {
+  text-align: left;
+}
+#servicess .services-box .col-md-4 .media-left h3,
+#servicess .services-box .col-md-4 .media-right h3,
+#servicess .services-box .col-md-4 .media-body h3 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: left;
+}
+#servicess .services-box .col-md-4 .media-left span,
+#servicess .services-box .col-md-4 .media-right span,
+#servicess .services-box .col-md-4 .media-body span {
+  font-size: 36px;
+  color: #fff;
+}
+
     /* ==========================================================================
 Portfolio Style
 ========================================================================== */
