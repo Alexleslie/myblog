@@ -1,8 +1,7 @@
 
 from django.shortcuts import render, get_object_or_404
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
-from django.utils.text import  slugify
 
 from .models import Post, Category
 
@@ -23,6 +22,7 @@ class CategoryView(ListView):
     model = Post
     template_name = 'blog/category.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
