@@ -46,5 +46,22 @@ class PostDetailView(DetailView):
         return response
 
 
+def search(request):
+    if request.method == 'POST':
+        body = request.POST['body']
+        danger_list= ['/','<','>','#','*','(',')','union','and','order']
+        for i in range(len(danger_list)):
+            if danger_list[i] in body:
+                return render(request, 'blog/search.html', context={'result': '你想干嘛？？？注意一点'})
+        else:
+            result_list = Post.objects.filter(body__contains=body)
+            result_list2 = Post.objects.filter(title__contains=body)
+            result_list = (result_list | result_list2).distinct()
+
+            return render(request, 'blog/category.html', context={'post_list':result_list,
+                                                                  'result': body +'的搜索结果'})
+
+    else:
+        return render(request, 'blog/search.html', )
 
 
