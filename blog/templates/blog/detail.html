@@ -8,11 +8,9 @@
             <h4>作者：{{ post.author }} | 时间：{{ post.created_time }} | {{ post.category }} | {{ post.views}} 观看</h4>
             <hr class="light-sep">
             <p>What Clients Say About Us</p>
-            <div id="owl-testi" class="owl-carousel owl-theme">
                 <div>
                     {{ post.body|safe|linebreaks }}
                 </div>
-            </div>
         </div>
 </section>
 
