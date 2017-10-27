@@ -2,8 +2,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
+from datetime import datetime
 
-from .models import Post, Category
+from .models import Post, Category, Message
 
 
 class IndexView(ListView):
@@ -49,7 +50,8 @@ class PostDetailView(DetailView):
 def search(request):
     if request.method == 'POST':
         body = request.POST['body']
-        danger_list= ['/','<','>','#','*','(',')','union','and','order']
+        danger_list= ['/', '<', '>', '#', '*', '(', ')', 'union', 'and',
+                      'order', 'script', 'a', 'img', '"', "'"]
         for i in range(len(danger_list)):
             if danger_list[i] in body:
                 return render(request, 'blog/search.html', context={'result': '你想干嘛？？？注意一点'})
@@ -64,4 +66,26 @@ def search(request):
     else:
         return render(request, 'blog/search.html', )
 
+
+def outside(request):
+    return render(request, 'blog/outside.html')
+
+
+def message(request):
+    message_list = Message.objects.all()
+    if request.method == 'POST':
+        body = request.POST['body']
+        danger_list = ['/', '<', '>', '#', '*', '(', ')', 'union', 'and',
+                       'order', 'script', 'a', 'img', '"', "'"]
+        for i in range(len(danger_list)):
+            if danger_list[i] in body:
+                return render(request, 'blog/message.html', context={'result': "你想留下点啥？？",
+                                                                     'message_list': message_list})
+        else:
+            message = Message.objects.create(body=body, created_time=datetime.utcnow())
+            message.save()
+            return render(request, 'blog/message.html', context={'message_list': message_list})
+    else:
+        message_list = Message.objects.all()
+        return render(request, 'blog/message.html', context={'message_list': message_list})
 

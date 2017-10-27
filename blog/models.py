@@ -32,3 +32,13 @@ class Post(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+
+class Message(models.Model):
+    body = models.TextField()
+    created_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.body
+
+    class Meta:
+        ordering = ['-created_time']

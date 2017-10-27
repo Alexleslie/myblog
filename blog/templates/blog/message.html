@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<section id="contact">
+    <hr class="Light-sep">
+        <div class="container">
+            <h2>留言板</h2>
+            <hr class="sep">
+            <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-delay=".3s">
+                <form method='POST'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="body" placeholder="关键字">
+                        {{ result }}
+                    </div>
+                    <input type="submit" class="btn-block">
+                </form>
+            </div>
+        </div>
+
+<hr class="Light-sep">
+
+
+        {% for message in message_list %}
+    <h6 >{{ message.body }}</h6>
+    <!--&nbsp;&nbsp;&nbsp;&nbsp; 留言于{{ message.created_time|date:"Y-m-d " }}-->
+        {% endfor %}
+    <hr class="sep">
+    {% if is_paginated %}
+    <div class="pagination-simple">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"; style="text-decoration: none; color: #444;">上一页</a>
+        {% endif %}
+        <span class="current"> <h5>当前 {{ page_obj.number }}／ 共 {{ paginator.num_pages }} 页</h5> </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"; style="text-decoration: none; color: #444;">下一页</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+{% endblock%}
