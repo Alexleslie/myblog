@@ -69,7 +69,7 @@
                     <div class="social-media hidden-sm hidden-xs">
                         <ul class="nav navbar-nav">
                             {% if user.is_authenticated %}
-                            <li><a href="#">你好</a></li>
+                            <li><a href="#">{{ user.username }}</a></li>
                             <li><a href="{% url 'blog:logout' %}?next={{ request.path }}">登出</a></li>
                             {% else %}
                             <li><a href="{% url 'blog:register' %}">注册</a></li>
