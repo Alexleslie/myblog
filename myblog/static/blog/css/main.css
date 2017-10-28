@@ -790,6 +790,42 @@ Contact Us Style
   resize: none;
 }
 
+#contactt {
+  padding: 60px 0;
+  text-align: center;
+}
+#contactt h2 {
+  text-transform: uppercase;
+}
+#contactt form {
+  margin: 40px 0;
+}
+#contactt .form-group {
+  margin-bottom: 35px;
+}
+#contactt .form-group-2 {
+  margin-bottom: 35px;
+  text-align:left;
+
+}
+#contactt .form-control {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border: 2px solid #24242a;
+  color: #0d0d0d;
+  min-height: 45px;
+}
+#contactt textarea {
+  height: 500px;
+  width: 750px;
+  resize: none;
+}
+
+#contacttt {
+  padding: 60px 0;
+ 
+}
     /* ==========================================================================
 Google Map Style
 ========================================================================== */

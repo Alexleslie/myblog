@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-<section id="testimonialss">
+<section id="contacttt">
         <div class="container">
             <hr class="Light-sep">
             <h2 style="">{{ post.title }}</h2>
@@ -9,8 +9,10 @@
             <hr class="light-sep">
             <p>What Clients Say About Us</p>
                 <div>
-                    {{ post.body|safe|linebreaks }}
+                    {{ post.body|linebreaks }}
                 </div>
+            <hr class="light-sep">
+            <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:edit' post.id %}">编辑文章</a></h3>
         </div>
 </section>
 

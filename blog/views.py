@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, get_object_or_404,render_to_response
+from django.shortcuts import render, get_object_or_404,render_to_response, reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
 from datetime import datetime
@@ -7,10 +7,8 @@ from django.contrib import messages
 from .models import Post, Category, Message
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, user_logged_in
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
-from .form import RegisterForm, SearchForm
-from django.contrib.auth.forms import UserCreationForm
+from .form import RegisterForm
+from django.contrib.auth.decorators import login_required,permission_required
 
 
 def check(body,type):
@@ -24,6 +22,14 @@ def check(body,type):
 
 def page_not_found(request):
     return render(request, 'blog/errors/404.html')
+
+
+def forbidden(request):
+    return render(request, 'blog/errors/403.html')
+
+
+def server_error(request):
+    return render(request, 'blog/errors/500.html')
 
 
 class IndexView(ListView):
@@ -71,7 +77,6 @@ def search(request):
             result_list = Post.objects.filter(body__contains=body)
             result_list2 = Post.objects.filter(title__contains=body)
             result_list = (result_list | result_list2).distinct()
-
             return render(request, 'blog/category.html', context={'post_list':result_list,
                                                                   'result': body +'的搜索结果'})
     else:
@@ -111,18 +116,41 @@ def register(request):
         return render(request, 'blog/register.html')
 
 
-'''def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        if check(username, 'username'):
-            messages.error(request, '用户名不规范')
-            return render(request, 'blog/login.html')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            auth_login(request, user)
-'''
 
+@login_required(login_url='/')
+@permission_required(['Can add post', 'Can change post'], raise_exception=True)
+def edit(request, pk):
+    post = Post.objects.get(id=pk)
+    if request.method == 'POST':
+        body = request.POST['body']
+        post.body = body
+        post.save()
+        messages.success(request, '发表成功')
+        post = Post.objects.get(id=pk)
+        return render(request, 'blog/edit_post.html', context={'post': post})
+    else:
+        return render(request, 'blog/edit_post.html', context={'post': post})
+
+
+
+
+@login_required(login_url='/')
+@permission_required(['Can add post', 'Can change post'], raise_exception=True)
+def create(request):
+    if request.method == 'POST':
+        body = request.POST['body']
+        title = request.POST['title']
+        category = int(request.POST['category'])
+        category = Category.objects.get(id=category)
+        post = Post.objects.create(title=title, body=body,category=category,
+                                   author=request.user, created_time=datetime.utcnow(),
+                                   modified_time=datetime.utcnow())
+        post.save()
+        messages.success(request, '发表成功')
+        post = Post.objects.get(id=post.id)
+        return render(request, 'blog/detail.html', context={'post': post})
+    else:
+        return render(request, 'blog/create_post.html')
 
 
 

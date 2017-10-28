@@ -39,6 +39,10 @@
                             <li><a href="{% url 'blog:search' %}" >搜索</a></li>
                             <li><a href="{% url 'blog:outside' %}">知识平台</a></li>
                             <li><a href="{% url 'blog:message' %}">留言板</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'blog:create' %}">写文章</a></li>
+                            {% endif %}
+
                         </ul>
 
                     <div class="social-media hidden-sm hidden-xs">

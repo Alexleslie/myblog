@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<section id="contactt">
+    <hr class="Light-sep">
+        <div class="container">
+            <h2>{{ post.title }}</h2>
+            <hr class="sep">
+            <h4>{{ post.author }} | {{ post.created_time|date:"Y-m-d "  }} | {{ post.category }} | {{ post.views }}</h4>
+
+            {%for message in messages %}
+                <h4 {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{message }}</h4>
+            {%endfor %}
+            <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-delay=".3s">
+                <form method='POST'>
+                    {% csrf_token %}
+                    <div style="margin-left:-100px;" class="form-group">
+                        <textarea class="form-control" name="body">{{ post.body }}{{ message }}</textarea>
+                    </div>
+                    <input type="submit" class="btn-block">
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

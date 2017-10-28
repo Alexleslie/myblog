@@ -7,7 +7,7 @@ class SearchForm(forms.Form):
     body = forms.TextInput()
 
 
-class MessageForm(forms.Form):
+class PostForm(forms.Form):
     body = forms.TextInput()
 
 

@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^message/$', views.message, name='message'),
     url(r'^register/$', views.register, name='register'),
     url(r'^users/', include('django.contrib.auth.urls')),
+    url(r'^edit_post/(?P<pk>[0-9]+)/$', views.edit, name='edit'),
+    url(r"create/", views.create, name='create')
 ]

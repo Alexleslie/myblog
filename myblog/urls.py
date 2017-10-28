@@ -28,3 +28,5 @@ urlpatterns = [
 ]
 
 handler404 = page_not_found
+handler403 = forbidden
+handler500 = server_error
