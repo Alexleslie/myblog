@@ -4,20 +4,25 @@
 <section id="contact">
     <hr class="Light-sep">
         <div class="container">
-            <h2>找你想要的</h2>
+            <h2>登入</h2>
             <hr class="sep">
             {%for message in messages %}
                 <h4 {%if message.tags %} class="{{ message.tags }}"{% endif %}>{{message }}</h4>
             {%endfor %}
+            <h4>{{ form.non_field_errors }}</h4>
             <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-delay=".3s">
-                <form method='POST'>
+                <form action="{% url 'blog:login' %}" method='post'>
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" class="form-control" name="body" placeholder="关键字">
+                        <input type="username" class="form-control" name="username" placeholder="用户名">
+                        <br>
+                        <input type="password" class="form-control" name="password" placeholder="密码">
                     </div>
                     <input type="submit" class="btn-block">
+                    <input type="hidden" name="next" value="{{ next }}"/>
                 </form>
             </div>
         </div>
     </section>
+
 {% endblock %}

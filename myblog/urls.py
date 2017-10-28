@@ -18,7 +18,8 @@ from django.contrib import admin
 from .settings import STATIC_ROOT
 from django.views.static import serve
 from django.conf import settings
-
+from django.conf.urls import handler404
+from blog.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +27,4 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
 ]
 
-
+handler404 = page_not_found
