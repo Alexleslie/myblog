@@ -8,8 +8,9 @@
             <h4>作者：{{ post.author }} | 时间：{{ post.created_time }} | {{ post.category }} | {{ post.views}} 观看</h4>
             <hr class="light-sep">
             <p>What Clients Say About Us</p>
-                <div>
-                    {{ post.body|linebreaks }}
+                <div type="text">
+                    {% load djangomarkdown %}
+                    {{ post.body|djangomarkdown }}
                 </div>
             <hr class="light-sep">
             <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:edit' post.id %}">编辑文章</a></h3>

@@ -14,7 +14,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=70)
     body = models.TextField()
-    created_time = models.DateTimeField()
+    created_time = models.DateTimeField(default=datetime.utcnow())
     modified_time = models.DateTimeField()
     views = models.PositiveIntegerField(default=0)
 

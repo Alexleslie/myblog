@@ -1,17 +1,14 @@
-
-from django.shortcuts import render, get_object_or_404,render_to_response, reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from datetime import datetime
 from django.contrib import messages
 from .models import Post, Category, Message
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, user_logged_in
 from .form import RegisterForm
 from django.contrib.auth.decorators import login_required,permission_required
+import markdown
 
 
-def check(body,type):
+def check(body, type):
     if type == 'body':
         danger_list = ['/', '<', '>', '#', '*', '(', ')', '"', "'"]
         for i in range(len(danger_list)):
@@ -65,6 +62,15 @@ class PostDetailView(DetailView):
         self.object.increase_views()
         return response
 
+    #def get_object(self, queryset=None):
+     #   post = super(PostDetailView, self).get_object(queryset=None)
+      #  md = markdown.Markdown(extensions=[
+       #     'markdown.extensions.extra',
+        #    'markdown.extensions.codehilite',
+        #])
+        #post.body = md.convert(post.body)
+        #return post
+
 
 def search(request):
     if request.method == 'POST':
@@ -77,8 +83,8 @@ def search(request):
             result_list = Post.objects.filter(body__contains=body)
             result_list2 = Post.objects.filter(title__contains=body)
             result_list = (result_list | result_list2).distinct()
-            return render(request, 'blog/category.html', context={'post_list':result_list,
-                                                                  'result': body +'的搜索结果'})
+            return render(request, 'blog/category.html', context={'post_list': result_list,
+                                                                  'result': body + '的搜索结果'})
     else:
         return render(request, 'blog/search.html', )
 
@@ -115,7 +121,6 @@ def register(request):
         return render(request, 'blog/register.html')
 
 
-
 @login_required(login_url='/')
 @permission_required(['Can add post', 'Can change post'], raise_exception=True)
 def edit(request, pk):
@@ -130,8 +135,6 @@ def edit(request, pk):
         return render(request, 'blog/edit_post.html', context={'post': post})
 
 
-
-
 @login_required(login_url='/')
 @permission_required(['Can add post', 'Can change post'], raise_exception=True)
 def create(request):
@@ -141,8 +144,7 @@ def create(request):
         category = int(request.POST['category'])
         category = Category.objects.get(id=category)
         post = Post.objects.create(title=title, body=body,category=category,
-                                   author=request.user, created_time=datetime.utcnow(),
-                                   modified_time=datetime.utcnow())
+                                   author=request.user,modified_time=datetime.utcnow())
         post.save()
         messages.success(request, '发表成功')
         post = Post.objects.get(id=post.id)

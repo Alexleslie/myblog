@@ -15,14 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .settings import STATIC_ROOT
 from django.views.static import serve
 from django.conf import settings
-from django.conf.urls import handler404
 from blog.views import *
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin_l_l_l/', admin.site.urls),
     url(r'', include('blog.urls')),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
 ]
