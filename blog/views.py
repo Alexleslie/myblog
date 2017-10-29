@@ -116,7 +116,7 @@ def register(request):
 
 
 @login_required(login_url='/')
-@permission_required(['Can add post', 'Can change post'], raise_exception=True)
+@permission_required('Can add post', raise_exception=True)
 def edit(request, pk):
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
@@ -129,7 +129,7 @@ def edit(request, pk):
 
 
 @login_required(login_url='/')
-@permission_required(['Can add post', 'Can change post'], raise_exception=True)
+@permission_required('Can add post', raise_exception=True)
 def create(request):
     if request.method == 'POST':
         body = request.POST['body']
