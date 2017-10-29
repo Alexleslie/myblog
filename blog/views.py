@@ -129,7 +129,7 @@ def edit(request, pk):
 
 
 @login_required(login_url='/')
-@permission_required('Can add post', raise_exception=True)
+@permission_required('blog.Can add post', raise_exception=True)
 def create(request):
     if request.method == 'POST':
         body = request.POST['body']
