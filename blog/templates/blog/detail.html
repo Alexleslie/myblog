@@ -9,8 +9,7 @@
             <hr class="light-sep">
             <p>What Clients Say About Us</p>
                 <div type="text">
-                    {% load djangomarkdown %}
-                    {{ post.body|djangomarkdown }}
+                    {{ post.body | safe | linebreaks }}
                 </div>
             <hr class="light-sep">
             <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:edit' post.id %}">编辑文章</a></h3>

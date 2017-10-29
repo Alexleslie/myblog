@@ -6,6 +6,8 @@ from .models import Post, Category, Message
 from .form import RegisterForm
 from django.contrib.auth.decorators import login_required,permission_required
 import markdown
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 
 def check(body, type):
@@ -52,24 +54,16 @@ class CategoryView(ListView):
         return context
 
 
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'blog/detail.html'
-    context_object_name = 'post'
-
-    def get(self, request, *args, **kwargs):
-        response = super(PostDetailView, self).get(request, *args, **kwargs)
-        self.object.increase_views()
-        return response
-
-    #def get_object(self, queryset=None):
-     #   post = super(PostDetailView, self).get_object(queryset=None)
-      #  md = markdown.Markdown(extensions=[
-       #     'markdown.extensions.extra',
-        #    'markdown.extensions.codehilite',
-        #])
-        #post.body = md.convert(post.body)
-        #return post
+def detail(request,pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.body = markdown.markdown(post.body,
+                                  extensions=[
+                                      'markdown.extensions.extra',
+                                      'markdown.extensions.codehilite',
+                                      'markdown.extensions.toc',
+                                  ])
+    post.increase_views()
+    return render(request, 'blog/detail.html', context={'post': post})
 
 
 def search(request):
@@ -129,8 +123,7 @@ def edit(request, pk):
         body = request.POST['body']
         post.body = body
         post.save()
-        post = Post.objects.get(id=pk)
-        return render(request, 'blog/detail.html', context={'post': post})
+        return HttpResponseRedirect(reverse('blog:detail', kwargs={'pk': pk}))
     else:
         return render(request, 'blog/edit_post.html', context={'post': post})
 
