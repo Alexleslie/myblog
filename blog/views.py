@@ -109,7 +109,6 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, '注册成功')
-
         return render(request, 'blog/register.html',context={'form':form})
 
     else:
@@ -125,9 +124,8 @@ def edit(request, pk):
         body = request.POST['body']
         post.body = body
         post.save()
-        messages.success(request, '发表成功')
         post = Post.objects.get(id=pk)
-        return render(request, 'blog/edit_post.html', context={'post': post})
+        return render(request, 'blog/detail.html', context={'post': post})
     else:
         return render(request, 'blog/edit_post.html', context={'post': post})
 
