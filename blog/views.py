@@ -109,7 +109,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, '注册成功')
-        return render(request, 'blog/register.html',context={'form':form})
+        return render(request, 'blog/register.html', context={'form':form})
 
     else:
         return render(request, 'blog/register.html')
