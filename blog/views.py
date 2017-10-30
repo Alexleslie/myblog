@@ -136,11 +136,17 @@ def create(request):
         title = request.POST['title']
         category = int(request.POST['category'])
         category = Category.objects.get(id=category)
-        post = Post.objects.create(title=title, body=body,category=category,
-                                   author=request.user,modified_time=datetime.utcnow())
+        post = Post.objects.create(title=title, body=body, category=category,created_time=datetime.utcnow(),
+                                   author=request.user, modified_time=datetime.utcnow())
         post.save()
         messages.success(request, '发表成功')
         post = Post.objects.get(id=post.id)
+        post.body = markdown.markdown(post.body,
+                                      extensions=[
+                                          'markdown.extensions.extra',
+                                          'markdown.extensions.codehilite',
+                                          'markdown.extensions.toc',
+                                      ])
         return render(request, 'blog/detail.html', context={'post': post})
     else:
         return render(request, 'blog/create_post.html')
