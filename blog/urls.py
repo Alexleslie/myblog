@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^users/', include('django.contrib.auth.urls')),
     url(r'^edit_post/(?P<pk>[0-9]+)/$', views.edit, name='edit'),
-    url(r"create/", views.create, name='create')
+    url(r'^create/', views.create, name='create'),
+    url(r'^delete/(?P<pk>[0-9]+)/', views.delete, name='delete'),
 ]

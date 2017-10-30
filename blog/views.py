@@ -116,7 +116,7 @@ def register(request):
 
 
 @login_required(login_url='/')
-@permission_required('Can add post', raise_exception=True)
+@permission_required('Can_add_post', raise_exception=True)
 def edit(request, pk):
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
@@ -129,7 +129,7 @@ def edit(request, pk):
 
 
 @login_required(login_url='/')
-@permission_required('blog.Can add post', raise_exception=True)
+@permission_required('post:Can_add_post', raise_exception=True)
 def create(request):
     if request.method == 'POST':
         body = request.POST['body']
@@ -145,6 +145,19 @@ def create(request):
     else:
         return render(request, 'blog/create_post.html')
 
+
+@login_required(login_url='/')
+@permission_required('post.Can_add_post', raise_exception=True)
+def delete(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if request.method == 'POST':
+        category = post.category
+        Post.objects.filter(id=post.pk).delete()
+        post_list = Post.objects.filter(category=category)
+        return render(request, 'blog/category.html', context={'category': category,
+                                                              'post_list': post_list})
+    else:
+        return render(request, 'blog/delete.html', context={'post': post})
 
 
 

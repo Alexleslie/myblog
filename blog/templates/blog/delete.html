@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<section id="contact">
+    <hr class="Light-sep">
+        <div class="container">
+            <h2>你确定要删除</h2>
+            <h3>{{ post.title }}</h3>
+            <hr class="sep">
+            <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-delay=".3s">
+                <form method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" class="btn-block", value="确认">
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
