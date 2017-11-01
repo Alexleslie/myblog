@@ -54,6 +54,15 @@ class CategoryView(ListView):
         return context
 
 
+class NewsView(ListView):
+    model = Post
+    template_name = 'blog/news.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        return super(NewsView, self).get_queryset()[0:10]
+
+
 def detail(request,pk):
     post = get_object_or_404(Post, pk=pk)
     post.body = markdown.markdown(post.body,
@@ -92,7 +101,7 @@ def message(request):
     if request.method == 'POST':
         body = request.POST['body']
         if check(body, 'body'):
-                messages.error(request,'你又想干啥？？？')
+                messages.error(request, '你又想干啥？？？')
                 return render(request, 'blog/message.html', context={'message_list': message_list})
         else:
             message = Message.objects.create(body=body, created_time=datetime.utcnow())

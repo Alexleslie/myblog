@@ -38,6 +38,7 @@
                             <li><a href="{% url 'blog:index' %}" class="page-scroll">主页</a></li>
                             <li><a href="{% url 'blog:index' %}#portfolio" class="page-scroll">文章</a></li>
                             <li><a href="{% url 'blog:search' %}" >搜索</a></li>
+                            <li><a href="{% url 'blog:news' %}">最新文章</a></li>
                             <li><a href="{% url 'blog:outside' %}">知识平台</a></li>
                             <li><a href="{% url 'blog:message' %}">留言板</a></li>
                             {% if user.is_authenticated %}

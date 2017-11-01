@@ -61,11 +61,12 @@
                             <li><a href="#services" class="page-scroll">爱好</a></li>
                             <li><a href="#portfolio" class="page-scroll">文章</a></li>
                             <li><a href="{% url 'blog:search' %}" class="page-scroll">搜索</a></li>
+                            <li><a href="{% url 'blog:news' %}">最新</a></li>
                             {% if user.is_authenticated %}
                             <li><a href="{% url 'blog:create' %}">写文章</a></li>
                             {% endif %}
-                            <li><a href="{% url 'blog:outside' %}">知识平台</a></li>
-                            <li><a href="{% url 'blog:message' %}">留言板</a></li>
+                            <li><a href="{% url 'blog:outside' %}">知识</a></li>
+                            <li><a href="{% url 'blog:message' %}">留言</a></li>
                             <li><a href="#contact" class="page-scroll">联系</a></li>
                         </ul>
                     </div>
