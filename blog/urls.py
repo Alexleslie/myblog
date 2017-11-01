@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^edit_post/(?P<pk>[0-9]+)/$', views.edit, name='edit'),
     url(r'^create/', views.create, name='create'),
     url(r'^delete/(?P<pk>[0-9]+)/', views.delete, name='delete'),
+    url(r'news/', views.NewsView.as_view(), name='news'),
 ]

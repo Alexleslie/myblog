@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<hr class="Light-sep">
+<section id="contact">
+        <div class="container">
+            <h2>最新文章</h2>
+            <hr class="sep">
+        </div>
+        {% for post in post_list %}
+        <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:detail' post.pk %}" >{{ post.title }}</a></h3>
+        {% endfor %}
+    <hr class="sep">
+    {% if is_paginated %}
+    <div class="pagination-simple">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"; style="text-decoration: none; color: #444;">上一页</a>
+        {% endif %}
+        <span class="current"> <h5>当前 {{ page_obj.number }}／ 共 {{ paginator.num_pages }} 页</h5> </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"; style="text-decoration: none; color: #444;">下一页</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

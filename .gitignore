@@ -42,3 +42,4 @@ nosetests.xml
 venv
 *.sqlite3
 *.sqlite3
+*.sqlite3
