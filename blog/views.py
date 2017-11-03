@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from datetime import datetime
 from django.contrib import messages
-from .models import Post, Category, Message
-from .form import RegisterForm
+from .models import Post, Category, Message, Comment
+from .form import RegisterForm, CommentForm
 from django.contrib.auth.decorators import login_required,permission_required
 import markdown
 from django.core.urlresolvers import reverse
@@ -72,7 +72,15 @@ def detail(request,pk):
                                       'markdown.extensions.toc',
                                   ])
     post.increase_views()
-    return render(request, 'blog/detail.html', context={'post': post})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = Comment.objects.create(body=form.cleaned_data['body'],
+                                             created_time=datetime.utcnow(), author=request.user)
+            comment.save()
+        return HttpResponseRedirect(reverse('blog:detail',kwargs={'pk': post.pk}))
+    comment_list = Comment.objects.all()
+    return render(request, 'blog/detail.html', context={'post': post,'comment_list': comment_list})
 
 
 def search(request):

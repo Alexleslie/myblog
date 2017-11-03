@@ -45,3 +45,14 @@ class Message(models.Model):
     class Meta:
         ordering = ['-created_time']
 
+
+class Comment(models.Model):
+    body = models.TextField()
+    created_time = models.DateTimeField()
+    author = models.ForeignKey(User, null=True)
+
+    def __str__(self):
+        return self.body
+
+    class Meta:
+        ordering = ['-created_time']

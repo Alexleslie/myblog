@@ -11,6 +11,10 @@ class PostForm(forms.Form):
     body = forms.TextInput()
 
 
+class CommentForm(forms.Form):
+    body = forms.CharField()
+
+
 class RegisterForm(UserCreationForm):
 
     class Meta:

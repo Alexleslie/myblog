@@ -608,6 +608,27 @@ Contact Us Style
   padding: 60px 0;
  
 }
+#contacttt .form-control {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border: 2px solid #24242a;
+  color: #0d0d0d;
+  min-height: 45px;
+}
+#contacttt form {
+  margin: 40px 0;
+}
+#contacttt .form-group {
+  margin-bottom: 35px;
+}
+#contacttt h2 {
+  text-transform: uppercase;
+}
+#contacttt textarea {
+  height: 140px;
+  resize: none;
+}
     /* ==========================================================================
 Google Map Style
 ========================================================================== */

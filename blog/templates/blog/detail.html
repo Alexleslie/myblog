@@ -14,7 +14,22 @@
             <hr class="light-sep">
             <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:edit' post.id %}">编辑文章</a></h3>
             <h3><a style="text-decoration: none; color: #444;" href="{% url 'blog:delete' post.id %}">删除文章</a></h3>
-
+            <hr class="sep">
+            <h2>评论</h2>
+            <hr class="Light-sep">
+            {% if user.is_authenticated %}
+                <form method='POST'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="body" placeholder="关键字">
+                    </div>
+                    <input type="submit" class="btn-block">
+                </form>
+            {% endif %}
+        {% for comment in comment_list %}
+            <h6>评论者： {{ comment.author }}    |    内容：{{ comment.body }}</h6>
+        <br>
+        {% endfor %}
         </div>
 </section>
 
