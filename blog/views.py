@@ -76,10 +76,10 @@ def detail(request,pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = Comment.objects.create(body=form.cleaned_data['body'],
-                                             created_time=datetime.utcnow(), author=request.user)
+                                             created_time=datetime.utcnow(), author=request.user, post=post)
             comment.save()
         return HttpResponseRedirect(reverse('blog:detail',kwargs={'pk': post.pk}))
-    comment_list = Comment.objects.all()
+    comment_list = Comment.objects.filter(post=post)
     return render(request, 'blog/detail.html', context={'post': post,'comment_list': comment_list})
 
 

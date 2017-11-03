@@ -50,6 +50,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_time = models.DateTimeField()
     author = models.ForeignKey(User, null=True)
+    post = models.ForeignKey(Post, null=True)
 
     def __str__(self):
         return self.body
